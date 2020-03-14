@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <link href="https://fonts.googleapis.com/css?family=Marck+Script&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+var TxtRotate = function(el, toRotate, period) {
+  this.toRotate = toRotate;
+  this.el = el;
+  this.loopNum = 0;
+  this.period = parseInt(period, 10) || 2000;
+  this.txt = '';
+  this.tick();
+  this.isDeleting = false;
+};
+
+TxtRotate.prototype.tick = function() {
+  var i = this.loopNum % this.toRotate.length;
+  var fullTxt = this.toRotate[i];
+
+  if (this.isDeleting) {
+    this.txt = fullTxt.substring(0, this.txt.length - 1);
+  } else {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
+  }
+
+  this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+  var that = this;
+  var delta = 300 - Math.random() * 100;
+
+  if (this.isDeleting) { delta /= 2; }
+
+  if (!this.isDeleting && this.txt === fullTxt) {
+    delta = this.period;
+    this.isDeleting = true;
+  } else if (this.isDeleting && this.txt === '') {
+    this.isDeleting = false;
+    this.loopNum++;
+    delta = 500;
+  }
+
+  setTimeout(function() {
+    that.tick();
+  }, delta);
+};
+
+window.onload = function() {
+  var elements = document.getElementsByClassName('txt-rotate');
+  for (var i=0; i<elements.length; i++) {
+    var toRotate = elements[i].getAttribute('data-rotate');
+    var period = elements[i].getAttribute('data-period');
+    if (toRotate) {
+      new TxtRotate(elements[i], JSON.parse(toRotate), period);
+    }
+  }
+  // INJECT CSS
+  var css = document.createElement("style");
+  css.type = "text/css";
+  css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+  document.body.appendChild(css);
+};
+</script>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+  font-family: 'Montserrat', sans-serif ;
+  padding: 20px;
+  background: #6e5773;
+
+}
+
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  font-family: 'Marck Script', cursive;
+  text-align: center;
+  background: -webkit-linear-gradient(#d45079,wheat);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 75%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+  
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 5px;
+}
+
+/* Add a card effect for articles */
+.card1 {
+   background-color:#d45079;
+   padding: 20px;
+   margin-top: 20px;
+   color: #e9e1cc;
+   border-radius: 3%;
+}
+
+.card1:hover {
+  box-shadow: 0 0 11px wheat; 
+}
+
+/* Add a card effect for articles */
+.card2 {
+   background-color:#ea9085;
+   padding: 20px;
+   margin-top: 20px;
+   color: #e9e1cc;
+   border-radius: 3%;
+}
+
+.card2:hover {
+  box-shadow: 0 0 11px wheat; 
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+  background: -webkit-linear-gradient(#d45079,wheat);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fa{
+			padding: 10px;
+			font-size: 20px;
+			width: 40px;
+			text-align: center;
+			text-decoration: none;
+            border-radius: 50%;
+            
+		}
+		.fa-facebook{
+			background-color: rgb(59, 89, 152);
+			color: white;
+		}
+		.fa-instagram{
+			background-color:rgb(193, 53, 132);
+			color: white;
+		}
+		.fa-linkedin{
+			background-color: rgb(0, 119, 181);
+			color: white;
+		}
+.icons{
+            justify-content: space-evenly;
+            align-items: center;
+            display: flex;
+
+}
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h2>The Garrulous Girl</h2>
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+      <a style="text-decoration: none;" href="Blog1.html">
+    <div class="card1">
+      <h2>ACTIVISM OVER EMPOWERMENT</h2>
+      <h5>Mar 14, 2020</h5>
+      <div class="fakeimg" style="height:200px;"><img src="img/WActivism.jpg" alt="Women Activism over Empowerment" height="100%" width="100%"></div>
+      <p>Why women Empowerment? How long women Empowerment?</p>
+      <p>Every year since 1911, March 8th is observed as Internation Women's Day. Globally it calls to action for equality - Is equality something which is to be given, just for a single day??</p>
+    </div>
+      </a>
+    <div class="card2">
+      <h2>TITLE HEADING</h2>
+      <h5>Title description, Sep 2, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>Some text..</p>
+      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div>
+  </div>
+  <div class="rightcolumn">
+    <div class="card2">
+      <h2>About Me</h2>
+      <div class="fakeimg"><img src="img/Ameera.jpg" alt="Ameera Sherin" height="100%" width="100%"></div>
+      <p>I am <span class="txt-rotate"
+        data-period="2000"
+        data-rotate='[ "Ameera Sherin.", "Garrulous.", "A Half-Processed Engineer.", "Falstaffian.", "An IEEEan" ]'></span></p>
+    </div>
+    <div class="card1">
+      <h3>Popular Post</h3>
+      <div class="fakeimg">
+          <p>  </p>
+          <p>image</p>
+          <p>  </p>
+      </div>
+    </div>
+    <div class="card2">
+      <h3>Follow Me</h3>
+      <div class="icons">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<a href="https://www.facebook.com/ameerasherin.1998" class="fa fa-facebook"></a>
+		<a href="https://www.instagram.com/ameera_sherin?r=nametag" class="fa fa-instagram"></a>
+        <a href="https://www.linkedin.com/in/ameera-sherin-aa11b4146" class="fa fa-linkedin "></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <h2>Stay away!! I'm toxic</h2>
+</div>
+
+</body>
+</html>
